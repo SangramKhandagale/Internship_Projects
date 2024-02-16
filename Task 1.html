@@ -1,0 +1,70 @@
+<html>
+<head>
+<style>
+.nav {
+  position: fixed; 
+  top: 0;
+  width: 100%;
+  background-color: white;
+  color: black;
+  display: flex; 
+  justify-content: space-around;
+  align-items: center;
+  height: 50px; 
+}
+
+
+.nav-item {
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+
+.nav-item:hover {
+  color: white; 
+  background-color: green; 
+  padding: 10px;
+  border-radius: 10px;
+}
+
+
+.active {
+  color: white; 
+  background-color: blue;
+  padding: 10px; 
+  border-radius: 10px; 
+}
+</style>
+</head>
+<body>
+
+<ul class="nav">
+  <li><a class="nav-item active" href="home.html">Home</a></li>
+  <li><a class="nav-item" href="about.html">About</a></li>
+  <li><a class="nav-item" href="contact.html">Contact</a></li>
+</ul>
+<script>
+
+var nav = document.querySelector(".nav");
+
+
+var initialColor = nav.style.backgroundColor;
+
+
+window.addEventListener("scroll", function() {
+  
+  var scrollPos = window.scrollY;
+
+  
+  if (scrollPos > 100) {
+    nav.style.backgroundColor = "red";
+  }
+  
+  else {
+    nav.style.backgroundColor = initialColor;
+  }
+});
+</script>
+</body>
+</html>
