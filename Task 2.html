@@ -1,0 +1,95 @@
+<html>
+<head>
+  <style>
+    #stopwatch {
+      font-size: 36px;
+      font-weight: bold;
+    }
+    #buttons {
+      margin-top: 20px;
+    }
+    button {
+      font-size: 20px;
+      padding: 10px;
+      margin: 5px;
+    }
+    #laps {
+      margin-top: 20px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div id="stopwatch">00:00:00</div>
+  <div id="buttons">
+    <button id="start" onclick="start()">Start</button>
+    <button id="stop" onclick="stop()" disabled>Stop</button>
+    <button id="reset" onclick="reset()" disabled>Reset</button>
+    <button id="lap" onclick="lap()" disabled>Lap</button>
+  </div>
+  <div id="laps"></div>
+  <script>
+    // Variables to store the timer, the elapsed time and the lap times
+    var timer = null;
+    var time = 0;
+    var laps = [];
+
+    // Function to format a number as two digits
+    function pad(n) {
+      return n < 10 ? "0" + n : n;
+    }
+
+    // Function to format the time as hh:mm:ss
+    function formatTime(t) {
+      var h = Math.floor(t / 3600);
+      var m = Math.floor((t % 3600) / 60);
+      var s = t % 60;
+      return pad(h) + ":" + pad(m) + ":" + pad(s);
+    }
+
+    // Function to update the stopwatch display
+    function update() {
+      time++;
+      document.getElementById("stopwatch").innerHTML = formatTime(time);
+    }
+
+    // Function to start the timer
+    function start() {
+      timer = setInterval(update, 1000);
+      document.getElementById("start").disabled = true;
+      document.getElementById("stop").disabled = false;
+      document.getElementById("reset").disabled = false;
+      document.getElementById("lap").disabled = false;
+    }
+
+    // Function to stop the timer
+    function stop() {
+      clearInterval(timer);
+      timer = null;
+      document.getElementById("start").disabled = false;
+      document.getElementById("stop").disabled = true;
+    }
+
+    // Function to reset the timer and the laps
+    function reset() {
+      stop();
+      time = 0;
+      laps = [];
+      document.getElementById("stopwatch").innerHTML = formatTime(time);
+      document.getElementById("laps").innerHTML = "";
+      document.getElementById("reset").disabled = true;
+      document.getElementById("lap").disabled = true;
+    }
+
+    // Function to record a lap time
+    function lap() {
+      laps.push(time);
+      var lapText = "";
+      for (var i = 0; i < laps.length; i++) {
+        lapText += "Lap " + (i + 1) + ": " + formatTime(laps[i]) + "<br>";
+      }
+      document.getElementById("laps").innerHTML = lapText;
+    }
+  </script>
+</body>
+</html>
