@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To-Do List App</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+    }
+    ul {
+        list-style-type: none;
+        padding: 0;
+    }
+    li {
+        margin-bottom: 5px;
+    }
+    .delete-btn {
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+    <h1>To-Do List</h1>
+    <input type="text" id="taskInput" placeholder="Add a new task">
+    <button onclick="addTask()">Add Task</button>
+    <ul id="taskList"></ul>
+
+    <script>
+        // Initialize task list
+        let tasks = [];
+
+        // Function to render tasks
+        function renderTasks() {
+            const taskList = document.getElementById("taskList");
+            taskList.innerHTML = "";
+            tasks.forEach((task, index) => {
+                const li = document.createElement("li");
+                li.innerHTML = `<span>${task}</span> <button class="delete-btn" onclick="deleteTask(${index})">Delete</button>`;
+                taskList.appendChild(li);
+            });
+        }
+
+        // Function to add a new task
+        function addTask() {
+            const taskInput = document.getElementById("taskInput");
+            const task = taskInput.value.trim();
+            if (task !== "") {
+                tasks.push(task);
+                taskInput.value = "";
+                renderTasks();
+            } else {
+                alert("Please enter a task");
+            }
+        }
+
+        // Function to delete a task
+        function deleteTask(index) {
+            tasks.splice(index, 1);
+            renderTasks();
+        }
+
+        // Initial rendering
+        renderTasks();
+    </script>
+</body>
+</html>
